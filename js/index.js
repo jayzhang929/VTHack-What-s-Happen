@@ -1,11 +1,22 @@
 var socket = io();
+function get_selected(select){
+  var raw = select.selectedOptions;
+  var output = [];
+  $(raw).each(function(index){
+    output.push(this.value);
+  });
+  return output;
+
+}
 function form_run(){
   var form = document.forms.form;
-  eventname = form.eventname.value;
-  username = form.username.value;
-  loc = form.location.value;
-  date = form.date.value;
-  time = form.time.value;
+  var eventname = form.eventname.value;
+  var username = form.username.value;
+  var loc = form.location.value;
+  var date = form.date.value;
+  var time = form.time.value;
+  var tags = get_selected(form.tags);
+  var description = form.description.value;
   if(eventname === "" || username === "" || loc === ""){
     return;
   }
@@ -13,24 +24,35 @@ function form_run(){
     "username": username,
     "eventname": eventname,
     "location": loc,
-    "date": new Date(date + " " + time)
+    "date": new Date(date + " " + time),
+    "tags": tags,
+    "description": description
   };
   socket.emit("submit", data);
 }
 
-
 socket.on('news', function(data){
   //$('#content').append(data);
-  var year, month, date, time;
+  if(data === null){
+    return;
+  }
+  console.log(data);
+  var year, month, date, time, tagstr, description;
   $('#textUpdate').empty();
   for(var index=0; index<data.length; index++){
-    var dateFieldBreakDown = data[index].DateField.split(/(\d+)/);
-    year = dateFieldBreakDown[1];
-    month = dateFieldBreakDown[3];
-    date = dateFieldBreakDown[5];
-    time = dateFieldBreakDown[7] + dateFieldBreakDown[8] + dateFieldBreakDown[9];
-    console.log();
-     $('#textUpdate').append($('<li>').text(data[index].name + " " + data[index].EventName + " " + data[index].Loc + " Month: " + month + " Date: " + date + " Time: " + time) );
+    var dateBreakDown = data[index].date.split(/(\d+)/);
+    year = dateBreakDown[1];
+    month = dateBreakDown[3];
+    date = dateBreakDown[5];
+    time = dateBreakDown[7] + dateBreakDown[8] + dateBreakDown[9];
+    tagstr = "|";
+    for(var i = 0; i < data[index].tags.length; i++){
+      tagstr = tagstr + data[index].tags[i];
+      tagstr = tagstr + "|";
+    }
+    description = data[index].description;
+     $('#textUpdate').append($('<li>').text(data[index].name + ", " + data[index].EventName + ", " +
+         data[index].Loc + ", Month: " + month + ", Date: " + date + ", Time: " + time+ ", "+tagstr+", Description: "+description) );
   }
 });
 socket.emit("newsRequest","");

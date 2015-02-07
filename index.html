@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Events Social</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <!--<link rel="stylesheet" type="text/css" href="bootstrap.css">-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -12,12 +12,30 @@
   <body>
   	<h1 style="text-align: center;">Events Social</h1>
     <form name="form" action="javascript:form_run()">
-      Sponsor Name: <input type="text" name="username"> <br />
-      Event Name: <input type="text" name="eventname"> <br />
-      Location: <input type="text" name="location"> <br />
-      Date: <input type="date" name="date"> <br />
-      Time: <input type="time" name="time"> <br />
+      Sponsor Name:
+      <input type="text" name="username"> <br />
+      Event Name:
+      <input type="text" name="eventname"> <br />
+      Location:
+      <input type="text" name="location"> <br />
+      Date:
+      <input type="date" name="date"> <br />
+      Time:
+      <input type="time" name="time"> <br />
+      Tags:
+      <select name="tags" multiple>
+        <option value="Performance">Performance</option>
+        <option value="Social">Social</option>
+        <option value="Free food">Free Food</option>
+        <option value="Free swag">Free swag </option>
+        <option value="Professional">Professional</option>
+        <option value="Sports">Sports</option>
+        <option value="Workshop">Workshop</option>
+      </select> <br />
+      Description: 
+      <textarea name="description"></textarea> <br />
       <input type="submit">
+
     </form>
 
     <ul id="textUpdate">

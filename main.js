@@ -6,7 +6,7 @@ var fs = require('fs');
 var db = require('monk')('localhost:27017/mydb');
 var users = db.get('users');
 var today = new Date();
-users.index({'DateField': 1}, {'DateField': { $gt: today }});
+users.index({'date': 1}, {'date': { $gt: today }});
 
 //asking the front end to see the folder
 app.use(express.static(__dirname + '/js'));
@@ -29,13 +29,21 @@ app.get('/test', function(req,res){
 io.on('connection', function(socket){
   //reading the file
   socket.on('newsRequest', function(data) {
-    users.find({ 'DateField' : { $gt: today } }, { sort: { 'DateField': 1 } }, function(err, data) {
+    users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
       socket.emit('news', data);
     });
   });
   socket.on('submit', function(data){
-    users.insert({name: data.username, EventName: data.eventname, Loc: data.location, DateField: new Date(data.date)});
-    users.find({ 'DateField' : { $gt: today } }, { sort: { 'DateField': 1 } }, function(err, data) {
+    users.insert({
+      name: data.username,
+      eventname: data.eventname,
+      loc: data.location,
+      date: new Date(data.date),
+      tags: data.tags,
+      description: data.description
+    });
+
+    users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
       socket.emit('news', data);
     });
   });
