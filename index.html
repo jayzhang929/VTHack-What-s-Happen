@@ -10,9 +10,27 @@
   	<h1 style="text-align: center;">Events Social</h1>
 
     <form method="get" action="/form">
-      <input type="text" name="username">
-      <input type="text" name="eventname">
-      <input type="text" name="location">
+      Sponsor Name: <input type="text" name="username"> <br />
+      Event Name: <input type="text" name="eventname"> <br />
+      Location: <input type="text" name="location"> <br />
+      
+      Month:
+      <select name="month">
+        <option value="January">Jan</option>
+        <option value="February">Feb</option>
+        <option value="March">Mar</option>
+        <option value="April">Apr</option>
+      </select>
+
+      Date: 
+      <select name="date">
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+      </select>
+
+      Time: <input type="text" name="time">
+      <br />
       <input type="submit">
     </form>
 
@@ -37,28 +55,23 @@
 	     socket.on('news', function(data){
 			    //$('#content').append(data);
           console.log(data.length);
-          var length = data.length;
-          while (length > 0) {
-            console.log("got here");
-            console.log("name: " + data[length - 1].name);
-			       $('#textUpdate').append($('<li>').text(data[length - 1].name + " " + data[length - 1].EventName + " " + data[length - 1].Loc) );
-            length--;
+          var length = data.length, index = 0;
+          var year, month, date, time;
+          while (index < length) {
+            var dateFieldBreakDown = data[index].DateField.split(/(\d+)/);
+            year = dateFieldBreakDown[1];
+            month = dateFieldBreakDown[3];
+            date = dateFieldBreakDown[5];
+            time = dateFieldBreakDown[7] + dateFieldBreakDown[8] + dateFieldBreakDown[9];
+            console.log();
+			       $('#textUpdate').append($('<li>').text(data[index].name + " " + data[index].EventName + " " + data[index].Loc + " Month: " + month + " Date: " + date + " Time: " + time) );
+
+            index++;
           }
 	     });
 	  
 	  
     </script>
     
-
-    <!--
-    <script>
-      var socket = io.connect('http://localhost');
-      socket.on('news', function (data) {
-        console.log("news received");
-        console.log(data);
-        //socket.emit('my other event', { my: 'data' });
-      });
-    </script>
-    -->
   </body>
 </html>
