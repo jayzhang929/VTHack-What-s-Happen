@@ -1,0 +1,10 @@
+{
+  "name":"vthacks",
+  "version":"0.0.0",
+  "dependencies":{
+    "express":"*",
+    "socket.io":"*",
+    "monk":"*"
+  }
+  
+}
