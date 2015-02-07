@@ -4,12 +4,14 @@
     <title>Events Social</title>
     <link rel="stylesheet" type="text/css" href="bootstrap.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     
   </head>
   <body>
   	<h1 style="text-align: center;">Events Social</h1>
-
-    <form method="get" action="/form">
+    <form name="form" action="javascript:form_run()">
       <input type="text" name="username">
       <input type="text" name="eventname">
       <input type="text" name="location">
@@ -21,35 +23,6 @@
     <ul id="textUpdate">
       <li>whats news?</li>
     </ul>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    
-    
-    <script>
-      var socket = io();
-
-      function myFunction() {
-        console.log("myFunction is called");
-        socket.emit('newsRequest', "here we go");
-      }
-	  
-	     socket.on('news', function(data){
-			    //$('#content').append(data);
-          console.log(data.length);
-          var length = data.length;
-          while (length > 0) {
-            console.log("got here");
-            console.log("name: " + data[length - 1].name);
-			       $('#textUpdate').append($('<li>').text(data[length - 1].name + " " + data[length - 1].EventName + " " + data[length - 1].Loc) );
-            length--;
-          }
-	     });
-	  
-	  
-    </script>
-    
-
     <!--
     <script>
       var socket = io.connect('http://localhost');
