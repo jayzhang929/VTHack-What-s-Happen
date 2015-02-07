@@ -5,16 +5,34 @@
     <link rel="stylesheet" type="text/css" href="bootstrap.css">
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="index.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="index.js"></script>
     
   </head>
   <body>
   	<h1 style="text-align: center;">Events Social</h1>
     <form name="form" action="javascript:form_run()">
-      <input type="text" name="username">
-      <input type="text" name="eventname">
-      <input type="text" name="location">
+      Sponsor Name: <input type="text" name="username"> <br />
+      Event Name: <input type="text" name="eventname"> <br />
+      Location: <input type="text" name="location"> <br />
+      
+      Month:
+      <select name="month">
+        <option value="1">Jan</option>
+        <option value="2">Feb</option>
+        <option value="3">Mar</option>
+        <option value="4">Apr</option>
+      </select>
+
+      Date: 
+      <select name="date">
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+      </select>
+
+      Time: <input type="text" name="time">
+      <br />
       <input type="submit">
     </form>
 
@@ -23,15 +41,7 @@
     <ul id="textUpdate">
       <li>whats news?</li>
     </ul>
-    <!--
-    <script>
-      var socket = io.connect('http://localhost');
-      socket.on('news', function (data) {
-        console.log("news received");
-        console.log(data);
-        //socket.emit('my other event', { my: 'data' });
-      });
-    </script>
-    -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-1.11.1.js"></script>-->
   </body>
 </html>
