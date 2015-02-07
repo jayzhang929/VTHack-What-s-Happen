@@ -34,7 +34,6 @@ io.on('connection', function(socket){
     });
   });
   socket.on('submit', function(data){
-    console.log(data);
     users.insert({name: data.username, EventName: data.eventname, Loc: data.location, DateField: new Date(data.date)});
     users.find({ 'DateField' : { $gt: today } }, { sort: { 'DateField': 1 } }, function(err, data) {
       socket.emit('news', data);

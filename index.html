@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Events Social</title>
@@ -15,29 +15,11 @@
       Sponsor Name: <input type="text" name="username"> <br />
       Event Name: <input type="text" name="eventname"> <br />
       Location: <input type="text" name="location"> <br />
-      
-      Month:
-      <select name="month">
-        <option value="1">Jan</option>
-        <option value="2">Feb</option>
-        <option value="3">Mar</option>
-        <option value="4">Apr</option>
-      </select>
-
-      Date: 
-      <select name="date">
-        <option value="14">14</option>
-        <option value="15">15</option>
-        <option value="16">16</option>
-      </select>
-
-      Time: <input type="text" name="time">
-      <br />
+      Date: <input type="date" name="date"> <br />
+      Time: <input type="time" name="time"> <br />
       <input type="submit">
     </form>
 
-    <button onclick="myFunction()">click here</button>
-    
     <ul id="textUpdate">
     </ul>
     <script src="/socket.io/socket.io.js"></script>

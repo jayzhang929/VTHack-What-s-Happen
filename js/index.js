@@ -3,12 +3,9 @@ function form_run(){
   var form = document.forms.form;
   eventname = form.eventname.value;
   username = form.username.value;
-  month = form.month.value;
+  loc = form.location.value;
   date = form.date.value;
   time = form.time.value;
-  loc = form.location.value;
-  timere = time.split(/(\d+)/);
-  console.log(timere)
   if(eventname === "" || username === "" || loc === ""){
     return;
   }
@@ -16,7 +13,7 @@ function form_run(){
     "username": username,
     "eventname": eventname,
     "location": loc,
-    "date": new Date(2015, month, date, parseInt(timere[1]), parseInt(timere[3]))
+    "date": new Date(date + " " + time)
   };
   socket.emit("submit", data);
 }
@@ -25,6 +22,7 @@ function form_run(){
 socket.on('news', function(data){
   //$('#content').append(data);
   var year, month, date, time;
+  $('#textUpdate').empty();
   for(var index=0; index<data.length; index++){
     var dateFieldBreakDown = data[index].DateField.split(/(\d+)/);
     year = dateFieldBreakDown[1];
