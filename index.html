@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Events Social</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
+  </head>
+  <body>
+  	<h1 style="text-align: center;">Events Social</h1>
+
+    <form method="get" action="/form">
+      <input type="text" name="username">
+      <input type="text" name="eventname">
+      <input type="text" name="location">
+      <input type="submit">
+    </form>
+
+    <button onclick="myFunction()">click here</button>
+    
+    <ul id="textUpdate">
+      <li>whats news?</li>
+    </ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    
+    
+    <script>
+      var socket = io();
+
+      function myFunction() {
+        console.log("myFunction is called");
+        socket.emit('newsRequest', "here we go");
+      }
+	  
+	     socket.on('news', function(data){
+			    //$('#content').append(data);
+			   $('#textUpdate').append($('<li>').text(data));
+	     });
+	  
+	  
+    </script>
+    
+
+    <!--
+    <script>
+      var socket = io.connect('http://localhost');
+      socket.on('news', function (data) {
+        console.log("news received");
+        console.log(data);
+        //socket.emit('my other event', { my: 'data' });
+      });
+    </script>
+    -->
+  </body>
+</html>
