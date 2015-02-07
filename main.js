@@ -11,7 +11,7 @@ users.index({'DateField': 1}, {'DateField': { $gt: today }});
 //asking the front end to see the folder
 app.use(express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/node_modules'));
-app.use(express.static(__dirname + '/css'));
+app.use('/css',express.static(__dirname + '/css'));
 
 app.get('/', function(req, res){
   //res.sendfile('index.html');
