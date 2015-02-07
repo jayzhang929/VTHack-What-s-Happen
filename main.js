@@ -7,26 +7,25 @@ var db = require('monk')('localhost:27017/mydb');
 var users = db.get('users');
 
 //asking the front end to see the folder
+app.use(express.static(__dirname + '/js'));
+app.use(express.static(__dirname + '/node_modules'));
 app.use(express.static(__dirname + '/css'));
 
 app.get('/', function(req, res){
+  //res.sendfile('index.html');
+  res.sendfile('VThack.html');
+});
+app.get('/old', function(req, res){
   res.sendfile('index.html');
-  
 });
 app.get('/test', function(req,res){
     users.find({}, function(err, data) {
       console.log(data);
     });
-    return  
 });
 app.get('/form', function(req, res) {
-    users.insert({name: req.query['username'], EventName: req.query['eventname'], Loc: req.query['location']});
-    res.send('Username: ' + req.query['username'] + 
-      'Eventname: ' + req.query['eventname'] + 
-      'Location: ' + req.query['location']);
-
+    users.insert({name: req.query.username, EventName: req.query.eventname, Loc: req.query.location});
 });
-
 	
 io.on('connection', function(socket){
   //reading the file
@@ -35,10 +34,16 @@ io.on('connection', function(socket){
       console.log(data.length);
       socket.emit('news', data);
     });
-    
   });
-  
+  socket.on('submit', function(data){
+    users.insert({name: data.username, EventName: data.eventname, Loc: data.location});
+    users.find({}, function(err, data) {
+      //socket.emit('news', data);
+      socket.emit(data[0].date);
+      console.log(data[0].date);
+    });
 
+  });
 });
 
 http.listen(3000, function(){
