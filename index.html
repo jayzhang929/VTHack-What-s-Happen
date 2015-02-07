@@ -36,7 +36,14 @@
 	  
 	     socket.on('news', function(data){
 			    //$('#content').append(data);
-			   $('#textUpdate').append($('<li>').text(data));
+          console.log(data.length);
+          var length = data.length;
+          while (length > 0) {
+            console.log("got here");
+            console.log("name: " + data[length - 1].name);
+			       $('#textUpdate').append($('<li>').text(data[length - 1].name + " " + data[length - 1].EventName + " " + data[length - 1].Loc) );
+            length--;
+          }
 	     });
 	  
 	  
