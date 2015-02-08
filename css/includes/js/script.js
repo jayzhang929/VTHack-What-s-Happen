@@ -377,8 +377,10 @@ socket.on('news', function(data){
   $('#textUpdate').empty();
   var item;
   var loc = $($(".panel-body")[0]);
+  loc.empty();
   for(var index=0; index<data.length; index++){
     item = generate(data[index], index+1);
+    console.log(item);
     loc.append(item);
   }
     var panels = $('.applicants-infos');
@@ -408,5 +410,5 @@ socket.on('news', function(data){
 
     $('[data-toggle="tooltip"]').tooltip();
 });
-socket.emit("newsRequest","");
+socket.emit("filter",[]);
         
