@@ -357,7 +357,13 @@ function generate(data, num){
   var tags = data.tags;
   template = template.replace(/\$TAGS/,tags);
   var description = data.description;
-  template = template.replace(/\$INFO_ALT/,description);
+  var mini_description;
+  if (description.length > 397){
+    mini_description = description.substring(0,397) + "...";
+  } else {
+    mini_description = description;
+  }
+  template = template.replace(/\$INFO_ALT/,mini_description);
   template = template.replace(/\$INFO/,description);
   template = template.replace(/\$NUM/,num);
   template = template.replace(/\$NUM/,num);
