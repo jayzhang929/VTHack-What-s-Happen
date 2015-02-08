@@ -6,6 +6,10 @@ var fs = require('fs');
 var db = require('monk')('localhost:27017/mydb');
 var users = db.get('users');
 var today = new Date();
+var tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+var dat = new Date(); //day after tomorrow
+dat.setDate(dat.getDate() + 2);
 var tagsParser = ["Performance", "Social"];
 users.index({'date': 1}, {'date': { $gt: today }});
 users.index({'tags': {"$all" : tagsParser} });
@@ -35,15 +39,21 @@ app.get('/test', function(req,res){
 	
 io.on('connection', function(socket){
   socket.on('filter', function(data){
-    if (data.length === 0){
-      users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
-        socket.emit('news', data); 
+   if (data.length === 0){
+      users.find({'date': {$gt:today, $lt:tomorrow}}, { sort: { 'date': 1 } }, function(err, data) {
+        socket.emit('today', data); 
       });
-    } else {
-      users.find({ 'date' : { $gt: today }, 'tags' : { "$all" : data} }, { sort: { 'date': 1 } }, function(err, data) {
-        socket.emit('news', data);      
+      users.find({'date': {$gt:tomorrow, $lt:dat}}, { sort: { 'date': 1 } }, function(err, data) {
+        socket.emit('tomorrow', data); 
+       });
+     } else {
+      users.find({ 'date' : { $gt: today , $lt: tomorrow}, 'tags' : { "$all" : data} }, { sort: { 'date': 1 } }, function(err, data) {
+        socket.emit('today', data);      
       });
-    }});
+      users.find({ 'date' : { $gt: tomorrow , $lt: dat}, 'tags' : { "$all" : data} }, { sort: { 'date': 1 } }, function(err, data) {
+        socket.emit('tomorrow', data);      
+       });
+     }});
   socket.on('req', function(data){
     console.log("req received!");
     users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
