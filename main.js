@@ -7,10 +7,19 @@ var db = require('monk')('localhost:27017/mydb');
 var multer = require('multer');
 var users = db.get('users');
 var today = new Date();
+today.setHours(0);
+today.setMinutes(0);
+today.setSeconds(0);
 var tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
+tomorrow.setHours(0);
+tomorrow.setMinutes(0);
+tomorrow.setSeconds(0);
+tomorrow.setDate(today.getDate() + 1);
 var dat = new Date(); //day after tomorrow
-dat.setDate(dat.getDate() + 2);
+dat.setHours(0);
+dat.setMinutes(0);
+dat.setSeconds(0);
+dat.setDate(tomorrow.getDate() + 1);
 var tagsParser = ["Performance", "Social"];
 users.index({'date': 1}, {'date': { $gt: today }});
 users.index({'tags': {"$all" : tagsParser} });
@@ -32,16 +41,16 @@ app.use(multer({ dest: './uploads/',
     return filename+Date.now();
   },
 onFileUploadStart: function (file) {
-  console.log(file.originalname + ' is starting ...')
+  console.log(file.originalname + ' is starting ...');
 },
 onFileUploadComplete: function (file) {
-  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  console.log(file.fieldname + ' uploaded to  ' + file.path);
   done=true;
 }
 }));
 
 app.post('/api/photo',function(req,res){
-  if(done==true){
+  if(done===true){
     console.log(req.files.userPhoto.name);
     img = req.files.userPhoto.name;
     //res.end("File uploaded.");
