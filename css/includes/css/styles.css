@@ -5,6 +5,17 @@ main page css
 */
 
 
+#eventspage{
+   padding-top: -50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+    padding-bottom: 200px;
+    margin-bottom: -100px;
+    text-align: center;
+    color: black;
+    background: url(../../../123.jpg) no-repeat center center;
+    background-size: cover;
+    height:900px;
+}
+
 /* --------------------------------------
    categorization 
    -------------------------------------- */
@@ -35,7 +46,8 @@ main page css
         ------ */
 
     footer{
-      background:#333;
+      margin-top: 60px;
+      background:#0B2B5E;
       color:#eee;
       font-size:11px;
       padding:20px;
