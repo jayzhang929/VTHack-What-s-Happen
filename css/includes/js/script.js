@@ -311,7 +311,7 @@ function generate(data, num){
   var template = "<li class='list-group-item'>" +
   "                  <div class='row'>" +
   "                    <div class='col-md-2  col-sm-2 col-xs-4'>" +
-  "                        <img src='http://placehold.it/150' class=' img-responsive' alt=''>   " +
+  "                        <img src='$IMAGE' class=' img-responsive' alt=''>   " +
   "                    </div><!--end of col-md-1 col-sm-2 col-xs-3-->" +
   "        <!-- event basic information -->" +
   "                  <div class='col-md-4 col-sm-3 col-xs-7'>" +
@@ -346,6 +346,13 @@ function generate(data, num){
   "            </div>" +
   "        </div>" +
   "      </div></li>";
+  var image;
+  if(data.img === undefined) {
+    image = "http://placehold.it/150";
+  } else {
+    image = data.img;
+  }
+  template = template.replace(/\$IMAGE/,image);
   var name = data.eventname;
   template = template.replace(/\$NAME/,name);
   var sponsor = data.name;
