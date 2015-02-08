@@ -191,33 +191,33 @@ $(document).ready(function() {
          mission detail applicants' application details
            -------------------------------------- */
 $(document).ready(function() {
-    var panels = $('.applicants-infos');
-    var panelsButton = $('.dropdown-user');
-    panels.hide();
+    //var panels = $('.applicants-infos');
+    //var panelsButton = $('.dropdown-user');
+    //panels.hide();
 
-    //Click dropdown
-    panelsButton.click(function() {
-        //get data-for attribute
-        var dataFor = $(this).attr('data-for');
-        var idFor = $(dataFor);
+    ////Click dropdown
+    //panelsButton.click(function() {
+        ////get data-for attribute
+        //var dataFor = $(this).attr('data-for');
+        //var idFor = $(dataFor);
 
-        //current button
-        var currentButton = $(this);
-        idFor.slideToggle(400, function() {
-            //Completed slidetoggle
-            if(idFor.is(':visible'))
-            {
-                currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
-            }
-            else
-            {
-                currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
-            }
-        });
-    });
+        ////current button
+        //var currentButton = $(this);
+        //idFor.slideToggle(400, function() {
+            ////Completed slidetoggle
+            //if(idFor.is(':visible'))
+            //{
+                //currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+            //}
+            //else
+            //{
+                //currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+            //}
+        //});
+    //});
 
 
-    $('[data-toggle="tooltip"]').tooltip();
+    //$('[data-toggle="tooltip"]').tooltip();
 
     $('button').click(function(e) {
         e.preventDefault();
@@ -307,19 +307,15 @@ $(document).ready(function() {
 /*-----------
  * socket.io stuff
 */
-function generate(data){
-  var teplate = "<li class='list-group-item'>" +
+function generate(data, num){
+  var template = "<li class='list-group-item'>" +
   "                  <div class='row'>" +
   "                    <div class='col-md-2  col-sm-2 col-xs-4'>" +
   "                        <img src='http://placehold.it/150' class=' img-responsive' alt=''>   " +
   "                    </div><!--end of col-md-1 col-sm-2 col-xs-3-->" +
-  "                  " +
   "        <!-- event basic information -->" +
   "                  <div class='col-md-4 col-sm-3 col-xs-7'>" +
-  "                               " +
   "                      <a href='#'><strong>$NAME</strong></a>  " +
-  "                " +
-  "                     " +
   "                        <div class='mic-info'><i class='fa fa-clock-o'></i>$DATETIME    <i class='fa fa-crosshairs'></i>$SPONSOR</div>" +
   "                        <div class='mic-info hoster'> <u>$LOCATION</u></div>" +
   "                         <div class='mic-info category'>$TAGS</div>" +
@@ -328,12 +324,12 @@ function generate(data){
   "         <!-- event basic information -->" +
   "          <!--                 event partial details                   -->" +
   "             <div class='hidden-phone star-rating col-md-5 col-sm-5 hidden-xs'> " +
-  "                                    <p>$DESCRIPTION_TRUNCATED</p>" +
+  "                                    <p>$INFO_ALT</p>" +
   "            </div> " +
   "          <!--                 event partial details                   -->" +
-  "            <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user' data-for='.event1'><i class='glyphicon glyphicon-chevron-up text-muted'></i></div>" +
+  "            <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user' data-for='.event$NUM'><i class='glyphicon glyphicon-chevron-down text-muted'></i></div>" +
   "        </div>" +
-  "        <div class='row applicants-infos event1' style='display: block;'>" +
+  "        <div class='row applicants-infos event$NUM' style='display: block;'>" +
   "            <div class='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1'>" +
   "              <hr>" +
   "                <div class='panel panel-primary'>" +
@@ -343,26 +339,30 @@ function generate(data){
   "                    <div class='panel-body'>" +
   "                        <div class='row'>" +
   "                            <div class=' col-md-12 col-sm-12 col-xs-12'>" +
-  "                               <p>$DETAILS</p><p>" +
+  "                               <p>$INFO</p><p>" +
   "                          </p></div>" +
   "                    </div>" +
-  "                   " +
   "                </div>" +
   "            </div>" +
   "        </div>" +
   "      </div></li>";
-  var name = data.name;
-      //name: data.username,
-      //eventname: data.eventname,
-      //loc: data.location,
-      //date: new Date(data.date),
-      //tags: data.tags,
-      //description: data.description
-   var datetime = data.date;
-   var loc = data.location;
-   var tags = data.tags;
-   var description = data.description;
-   console.log(data);
+  var name = data.eventname;
+  template = template.replace(/\$NAME/,name);
+  var sponsor = data.name;
+  template = template.replace(/\$SPONSOR/,sponsor);
+  var datetime = data.date;
+  template = template.replace(/\$DATETIME/,datetime);
+  var loc = data.loc;
+  template = template.replace(/\$LOCATION/,loc);
+  var tags = data.tags;
+  template = template.replace(/\$TAGS/,tags);
+  var description = data.description;
+  template = template.replace(/\$INFO_ALT/,description);
+  template = template.replace(/\$INFO/,description);
+  template = template.replace(/\$NUM/,num);
+  template = template.replace(/\$NUM/,num);
+  console.log(template);
+  return $(template);
 }
 
 
@@ -373,12 +373,40 @@ socket.on('news', function(data){
   if(data === null){
     return;
   }
-  console.log(data);
   var year, month, date, time, tagstr, description;
   $('#textUpdate').empty();
+  var item;
+  var loc = $($(".panel-body")[0]);
   for(var index=0; index<data.length; index++){
-
+    item = generate(data[index], index+1);
+    loc.append(item);
   }
+    var panels = $('.applicants-infos');
+    var panelsButton = $('.dropdown-user');
+    panels.hide();
+
+    //Click dropdown
+    panelsButton.click(function() {
+        //get data-for attribute
+        var dataFor = $(this).attr('data-for');
+        var idFor = $(dataFor);
+
+        //current button
+        var currentButton = $(this);
+        idFor.slideToggle(400, function() {
+            //Completed slidetoggle
+            if(idFor.is(':visible'))
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+            }
+            else
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+            }
+        });
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 socket.emit("newsRequest","");
         
