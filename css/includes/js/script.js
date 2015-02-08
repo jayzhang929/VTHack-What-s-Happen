@@ -361,7 +361,6 @@ function generate(data, num){
   template = template.replace(/\$INFO/,description);
   template = template.replace(/\$NUM/,num);
   template = template.replace(/\$NUM/,num);
-  console.log(template);
   return $(template);
 }
 
@@ -380,7 +379,6 @@ socket.on('news', function(data){
   loc.empty();
   for(var index=0; index<data.length; index++){
     item = generate(data[index], index+1);
-    console.log(item);
     loc.append(item);
   }
     var panels = $('.applicants-infos');
