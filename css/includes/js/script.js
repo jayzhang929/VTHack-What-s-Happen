@@ -10,6 +10,7 @@ Notes:   Hand coded for Udemy.com
 */
 // script for thumbnails display on services page
 
+var socket = io();
 $( document ).ready(function() {
     $("[rel='tooltip']").tooltip();    
  
@@ -97,7 +98,7 @@ $(function () {
         hide: function( elem ) {
             elem.slideUp( 100 );
         }
-    })
+    });
 });
 
 
@@ -165,7 +166,7 @@ $(document).ready(function () {
 $(document).ready(function() {
     $('#Carousel').carousel({
         interval: 5000
-    })
+    });
 });
 
 
@@ -212,7 +213,7 @@ $(document).ready(function() {
             {
                 currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
             }
-        })
+        });
     });
 
 
@@ -220,7 +221,19 @@ $(document).ready(function() {
 
     $('button').click(function(e) {
         e.preventDefault();
-        alert("This is a demo.\n :-)");
+        var target = $(e.currentTarget);
+        if(target.hasClass("active")){
+          target.removeClass("active");
+        } else {
+          target.addClass("active");
+        }
+        var enabled = [];
+        var form = document.forms.buttons;
+        var children = $(form).children().each(function(){
+          if($(this).hasClass("active"))
+            enabled.push($(this).text());
+        });
+        socket.emit("filter", enabled);
     });
 });
 
@@ -291,4 +304,81 @@ $(document).ready(function() {
         $(document).on('click', '.btn-remove', removeFormGroup);
 
 
+/*-----------
+ * socket.io stuff
+*/
+function generate(data){
+  var teplate = "<li class='list-group-item'>" +
+  "                  <div class='row'>" +
+  "                    <div class='col-md-2  col-sm-2 col-xs-4'>" +
+  "                        <img src='http://placehold.it/150' class=' img-responsive' alt=''>   " +
+  "                    </div><!--end of col-md-1 col-sm-2 col-xs-3-->" +
+  "                  " +
+  "        <!-- event basic information -->" +
+  "                  <div class='col-md-4 col-sm-3 col-xs-7'>" +
+  "                               " +
+  "                      <a href='#'><strong>$NAME</strong></a>  " +
+  "                " +
+  "                     " +
+  "                        <div class='mic-info'><i class='fa fa-clock-o'></i>$DATETIME    <i class='fa fa-crosshairs'></i>$SPONSOR</div>" +
+  "                        <div class='mic-info hoster'> <u>$LOCATION</u></div>" +
+  "                         <div class='mic-info category'>$TAGS</div>" +
+  "                             " +
+  "                    </div>" +
+  "         <!-- event basic information -->" +
+  "          <!--                 event partial details                   -->" +
+  "             <div class='hidden-phone star-rating col-md-5 col-sm-5 hidden-xs'> " +
+  "                                    <p>$DESCRIPTION_TRUNCATED</p>" +
+  "            </div> " +
+  "          <!--                 event partial details                   -->" +
+  "            <div class='col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user' data-for='.event1'><i class='glyphicon glyphicon-chevron-up text-muted'></i></div>" +
+  "        </div>" +
+  "        <div class='row applicants-infos event1' style='display: block;'>" +
+  "            <div class='col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1'>" +
+  "              <hr>" +
+  "                <div class='panel panel-primary'>" +
+  "                    <div class='panel-heading'>" +
+  "                        <h3 class='panel-title'>More Details</h3>" +
+  "                    </div>" +
+  "                    <div class='panel-body'>" +
+  "                        <div class='row'>" +
+  "                            <div class=' col-md-12 col-sm-12 col-xs-12'>" +
+  "                               <p>$DETAILS</p><p>" +
+  "                          </p></div>" +
+  "                    </div>" +
+  "                   " +
+  "                </div>" +
+  "            </div>" +
+  "        </div>" +
+  "      </div></li>";
+  var name = data.name;
+      //name: data.username,
+      //eventname: data.eventname,
+      //loc: data.location,
+      //date: new Date(data.date),
+      //tags: data.tags,
+      //description: data.description
+   var datetime = data.date;
+   var loc = data.location;
+   var tags = data.tags;
+   var description = data.description;
+   console.log(data);
+}
 
+
+
+
+socket.on('news', function(data){
+  //$('#content').append(data);
+  if(data === null){
+    return;
+  }
+  console.log(data);
+  var year, month, date, time, tagstr, description;
+  $('#textUpdate').empty();
+  for(var index=0; index<data.length; index++){
+
+  }
+});
+socket.emit("newsRequest","");
+        
