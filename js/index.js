@@ -20,7 +20,7 @@ socket.on('filterReturn', function(data){
     return;
   }
   console.log(data);
-  var year, month, date, time, tagstr, description;
+  var year, month, date, time, tagstr, description, img;
   $('#textUpdate').empty();
   for(var index=0; index<data.length; index++){
     var dateBreakDown = data[index].date.split(/(\d+)/);
@@ -34,8 +34,10 @@ socket.on('filterReturn', function(data){
       tagstr = tagstr + "|";
     }
     description = data[index].description;
+    img = data[index].img;
      $('#textUpdate').append($('<li>').text(data[index].name + ", " + data[index].eventname + ", " +
-         data[index].loc + ", Month: " + month + ", Date: " + date + ", Time: " + time+ ", "+tagstr+", Description: "+description) );
+         data[index].loc + ", Month: " + month + ", Date: " + date + ", Time: " + time+ ", "+tagstr+", Description: "+description) 
+        + ", imgSrc: " + img);
   }
 });
 

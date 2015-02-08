@@ -4,6 +4,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
 var db = require('monk')('localhost:27017/mydb');
+var multer = require('multer');
 var users = db.get('users');
 var today = new Date();
 var tomorrow = new Date();
@@ -15,9 +16,39 @@ users.index({'date': 1}, {'date': { $gt: today }});
 users.index({'tags': {"$all" : tagsParser} });
 
 //asking the front end to see the folder
+app.use(express.static(__dirname + '/uploads'));
 app.use(express.static(__dirname + '/js'));
 app.use(express.static(__dirname + '/node_modules'));
 app.use('/css',express.static(__dirname + '/css'));
+
+
+var done=false;
+var img;
+
+/*Configure the multer.*/
+
+app.use(multer({ dest: './uploads/',
+ rename: function (fieldname, filename) {
+    return filename+Date.now();
+  },
+onFileUploadStart: function (file) {
+  console.log(file.originalname + ' is starting ...')
+},
+onFileUploadComplete: function (file) {
+  console.log(file.fieldname + ' uploaded to  ' + file.path)
+  done=true;
+}
+}));
+
+app.post('/api/photo',function(req,res){
+  if(done==true){
+    console.log(req.files.userPhoto.name);
+    img = req.files.userPhoto.name;
+    //res.end("File uploaded.");
+  }
+});
+
+
 
 app.get('/', function(req, res){
   //res.sendfile('index.html');
@@ -70,7 +101,8 @@ io.on('connection', function(socket){
       loc: data.location,
       date: new Date(data.date),
       tags: data.tags,
-      description: data.description
+      description: data.description,
+      img: img
     });
 
     users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
