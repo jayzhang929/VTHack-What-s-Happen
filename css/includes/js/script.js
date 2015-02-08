@@ -233,7 +233,7 @@ $(document).ready(function() {
           if($(this).hasClass("active"))
             enabled.push($(this).text());
         });
-        io.emit("filter", enabled);
+        socket.emit("filter", enabled);
     });
 });
 
