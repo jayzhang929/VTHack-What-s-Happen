@@ -350,7 +350,20 @@ function generate(data, num){
   template = template.replace(/\$NAME/,name);
   var sponsor = data.name;
   template = template.replace(/\$SPONSOR/,sponsor);
-  var datetime = data.date;
+  var date = new Date(data.date);
+  var hours;
+  if (date.getHours() === 0 | date.getHours() === 12){
+    hours = 12;
+  } else {
+    hours = date.getHours()%12;
+  }
+  var ampm;
+  if (Math.floor(date.getHours()/12) === 0){
+    ampm = "AM";
+  } else {
+    ampm = "PM";
+  }
+  var datetime = hours + ":" + date.getMinutes() + " " + ampm;
   template = template.replace(/\$DATETIME/,datetime);
   var loc = data.loc;
   template = template.replace(/\$LOCATION/,loc);
