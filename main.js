@@ -63,6 +63,7 @@ app.get('/old', function(req, res){
 });
 
 app.get('/new', function(req, res){
+  img = "http://placehold.it/150";
   res.sendfile('post an event.html');
 });
 
