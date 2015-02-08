@@ -8,6 +8,62 @@ function get_selected(select){
   return output;
 
 }
+
+function infoReq(){
+  console.log("Got here!");
+  socket.emit('req', "");
+}
+
+
+socket.on('filterReturn', function(data){
+  if(data === null){
+    return;
+  }
+  console.log(data);
+  var year, month, date, time, tagstr, description;
+  $('#textUpdate').empty();
+  for(var index=0; index<data.length; index++){
+    var dateBreakDown = data[index].date.split(/(\d+)/);
+    year = dateBreakDown[1];
+    month = dateBreakDown[3];
+    date = dateBreakDown[5];
+    time = dateBreakDown[7] + dateBreakDown[8] + dateBreakDown[9];
+    tagstr = "|";
+    for(var i = 0; i < data[index].tags.length; i++){
+      tagstr = tagstr + data[index].tags[i];
+      tagstr = tagstr + "|";
+    }
+    description = data[index].description;
+     $('#textUpdate').append($('<li>').text(data[index].name + ", " + data[index].eventname + ", " +
+         data[index].loc + ", Month: " + month + ", Date: " + date + ", Time: " + time+ ", "+tagstr+", Description: "+description) );
+  }
+});
+
+
+socket.on('infoSent', function(data){
+  if(data === null){
+    return;
+  }
+  console.log(data);
+  var year, month, date, time, tagstr, description;
+  $('#textUpdate').empty();
+  for(var index=0; index<data.length; index++){
+    var dateBreakDown = data[index].date.split(/(\d+)/);
+    year = dateBreakDown[1];
+    month = dateBreakDown[3];
+    date = dateBreakDown[5];
+    time = dateBreakDown[7] + dateBreakDown[8] + dateBreakDown[9];
+    tagstr = "|";
+    for(var i = 0; i < data[index].tags.length; i++){
+      tagstr = tagstr + data[index].tags[i];
+      tagstr = tagstr + "|";
+    }
+    description = data[index].description;
+     $('#textUpdate').append($('<li>').text(data[index].name + ", " + data[index].eventname + ", " +
+         data[index].loc + ", Month: " + month + ", Date: " + date + ", Time: " + time+ ", "+tagstr+", Description: "+description) );
+  }
+});
+
 function form_run(){
   var form = document.forms.form;
   var eventname = form.eventname.value;
@@ -30,31 +86,5 @@ function form_run(){
   };
   socket.emit("submit", data);
 }
-
-socket.on('news', function(data){
-  //$('#content').append(data);
-  if(data === null){
-    return;
-  }
-  console.log(data);
-  var year, month, date, time, tagstr, description;
-  $('#textUpdate').empty();
-  for(var index=0; index<data.length; index++){
-    var dateBreakDown = data[index].date.split(/(\d+)/);
-    year = dateBreakDown[1];
-    month = dateBreakDown[3];
-    date = dateBreakDown[5];
-    time = dateBreakDown[7] + dateBreakDown[8] + dateBreakDown[9];
-    tagstr = "|";
-    for(var i = 0; i < data[index].tags.length; i++){
-      tagstr = tagstr + data[index].tags[i];
-      tagstr = tagstr + "|";
-    }
-    description = data[index].description;
-     $('#textUpdate').append($('<li>').text(data[index].name + ", " + data[index].EventName + ", " +
-         data[index].Loc + ", Month: " + month + ", Date: " + date + ", Time: " + time+ ", "+tagstr+", Description: "+description) );
-  }
-});
-socket.emit("newsRequest","");
 	  
 	  
