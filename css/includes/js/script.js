@@ -366,36 +366,19 @@ function generate(data, num){
 
 
 
-var internal_index = 0;
-socket.on('today', function(data){
+
+socket.on('news', function(data){
+  //$('#content').append(data);
   if(data === null){
     return;
   }
   var year, month, date, time, tagstr, description;
   $('#textUpdate').empty();
   var item;
-  var loc = $($(".list-group")[0]);
+  var loc = $($(".panel-body")[0]);
   loc.empty();
-  $("#today").text(data.length);
   for(var index=0; index<data.length; index++){
-    item = generate(data[index], internal_index);
-    internal_index++;
-    loc.append(item);
-  }
-});
-socket.on('tomorrow', function(data){
-  if(data === null){
-    return;
-  }
-  var year, month, date, time, tagstr, description;
-  $('#textUpdate').empty();
-  var item;
-  var loc = $($(".list-group")[1]);
-  loc.empty();
-  $("#tomorrow").text(data.length);
-  for(var index=0; index<data.length; index++){
-    item = generate(data[index], internal_index);
-    internal_index++;
+    item = generate(data[index], index+1);
     loc.append(item);
   }
     var panels = $('.applicants-infos');
