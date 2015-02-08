@@ -6,7 +6,7 @@ main page css
 
 
 #eventspage{
-   padding-top: -50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
+   padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 200px;
     margin-bottom: -100px;
     text-align: center;
@@ -14,6 +14,7 @@ main page css
     background: url(../../../123.jpg) no-repeat center center;
     background-size: cover;
     height:1100px;
+    /*margin-top: -50px;*/
 }
 
 /* --------------------------------------
