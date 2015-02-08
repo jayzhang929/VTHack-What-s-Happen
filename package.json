@@ -1,6 +1,7 @@
 {
-  "name":"vthacks",
+  "name":"WhatUpCampus",
   "version":"0.0.0",
+  "description":"WhatUpCampus is a centeralized database of events happening around campus.",
   "dependencies":{
     "express":"*",
     "socket.io":"*",
