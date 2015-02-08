@@ -49,6 +49,10 @@ app.post('/api/photo',function(req,res){
 });
 
 
+app.get('/123.jpg', function(req, res){
+  //res.sendfile('index.html');
+  res.sendfile('123.jpg');
+});
 
 app.get('/', function(req, res){
   //res.sendfile('index.html');
