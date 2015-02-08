@@ -5,7 +5,8 @@
   "dependencies":{
     "express":"*",
     "socket.io":"*",
-    "monk":"*"
+    "monk":"*",
+    "multer":"*"
   }
   
 }
