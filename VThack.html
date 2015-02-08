@@ -6,14 +6,13 @@
     <!-- Website Title & Description for Search Engine purposes -->
     <title></title>
     <meta name="description" content="">
-    <script src="/socket.io/socket.io.js"></script>
     
     <!-- Mobile viewport optimized -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <!-- Bootstrap CSS -->
-    <link href="css/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/includes/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="includes/css/bootstrap-glyphicons.css" rel="stylesheet">
 
     <!-- font awesome CSS -->   
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -23,29 +22,46 @@
 
 
     <!-- Custom CSS -->
-    <link href="css/includes/css/styles.css" rel="stylesheet">
+    <link href="includes/css/styles.css" rel="stylesheet">
     
     <!-- Include Modernizr in the head, before any other Javascript -->
-    <script src="css/includes/js/modernizr-2.6.2.min.js"></script>
-    <script src="index.js"></script>
+    <script src="includes/js/modernizr-2.6.2.min.js"></script>
+
 
 
     
   </head>
-  <body onload="infoReq()">
+  <body>
   
-<!--  <button onclick="infoReq()">Click Here</button> -->
-<ul id="textUpdate"></ul>
+
 
 <!--  ....................................................... main container ..............................................................  -->
+  
+
   <div class"container" id="main">
 
 
 <!--  ....................................................... navbar section ..............................................................  -->
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" id="logo"> <strong>WhatUpCampus</strong></a>
+        </div>
+        <div class="collapse navbar-collapse">
+         
+
+           <ul class="nav navbar-nav pull-right" id="navbar-right">
+             
+            <li><a href="#about">post an event</a></li>  
           
+          </ul>
+
 
         </div><!--/.nav-collapse -->
       </div>
@@ -53,19 +69,13 @@
 <!--  ....................................................... tag selection ..............................................................  -->
 
 <div class="eventtags" role="group" aria-label="">
-  <form action="javascript:button_run()" name="buttons">
-    <button type="button" class="btn btn-default">Social</button>
-<<<<<<< HEAD
-    <button type="button" class="btn btn-default">Professional</button>
-=======
-    <button type="button" class="btn btn-default">Professinal</button>
->>>>>>> FETCH_HEAD
-    <button type="button" class="btn btn-default">Free Food</button>
-    <button type="button" class="btn btn-default">Free Swag</button>
-    <button type="button" class="btn btn-default">Sports</button>
-    <button type="button" class="btn btn-default">Workshop</button>
+  <button type="button" class="btn btn-default">Social</button>
+  <button type="button" class="btn btn-default">Professinal</button>
+  <button type="button" class="btn btn-default">Free Food</button>
+  <button type="button" class="btn btn-default">Free Swag</button>
+  <button type="button" class="btn btn-default">Sports</button>
+   <button type="button" class="btn btn-default">Workshop</button>
     <button type="button" class="btn btn-default">Performance</button>
-  </form>
 </div>
 
 
@@ -105,6 +115,195 @@
             <div class="panel-body">
                             
           <ul class="list-group">
+        <!-- !!!!!!!!!!!!!!!!!!!!!! event 1 !!!!!!!!!!!!!!!!!!!!!!!!!-->
+               <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-md-2  col-sm-2 col-xs-4">
+                        <img src="http://placehold.it/150" class=" img-responsive" alt="" />   
+                    </div><!--end of col-md-1 col-sm-2 col-xs-3-->
+                  
+        <!-- event basic information -->
+                  <div class="col-md-4 col-sm-3 col-xs-7">
+                               
+                      <a href="#"><strong>Coalescence 6th Annual Hip Hop Showcase Weekend</strong></a>  
+                
+                     
+                        <div class="mic-info"><i class="fa fa-clock-o"></i>10:30-11:30    <i class="fa fa-crosshairs"></i>Torg 1030 </div>
+
+                        <div class="mic-info hoster"> <u></i>The dance club </u></div>
+
+                         <div class="mic-info category">free food,free swag, social, workshop</div>
+                             
+                    </div>
+         <!-- event basic information -->
+
+
+          <!--                 event partial details                   -->
+             <div class="hidden-phone star-rating col-md-5 col-sm-5 hidden-xs"> 
+                                    <p>Coalescence is a hip hop dance showcase that is open to all teams of all ages from DC, Maryland, Virginia, North Carolina, and surrounding areas. The purpose of Coalescence is to unite dancers and their crews, allowing all of us to share our talents and celebrate our love for dance and music. We want to show the diversity within our community, as well as strengthen, expose, and unify it. </p>
+            </div> 
+
+          <!--                 event partial details                   -->
+
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".event1">
+                <i class="glyphicon glyphicon-chevron-down text-muted"></i>
+            </div>
+        </div>
+
+        <div class="row applicants-infos event1">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+              <hr>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">More Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class=" col-md-12 col-sm-12 col-xs-12">
+                               <p>Coalescence is a hip hop dance showcase that is open to all teams of all ages from DC, Maryland, Virginia, North Carolina, and surrounding areas. The purpose of Coalescence is to unite dancers and their crews, allowing all of us to share our talents and celebrate our love for dance and music. We want to show the diversity within our community, as well as strengthen, expose, and unify it.
+
+Here are the details for this year's weekend:
+
+COALESCENCE 6TH ANNUAL HIP HOP DANCE SHOWCASE
+Memorial Hall, James Madison University
+Saturday February 7, 2015
+
+LINEUP:<br>
+Mozaic Dance Team
+Phunktions
+CREWcial
+Visual Distortions Dance Crew
+Blank Canvas
+Fusion
+Bamboom
+X-Tasee
+Project Wahp
+Baltimore Dance Crews Project: Juniors & Collective
+
+Intermission: Kids Workshop Performance & Cypher!
+
+Future Shock DC
+Dancing's Our Poison
+AKAdeMiX
+Mighty Morphin Boogie Rangers
+KickRocks/Pebbles
+Physical Graffeeti
+Major Definition
+Dramatic FX
+Coverboy
+Mozaic Dance Team
+
+KODACHROME WORKSHOP
+Godwin Hall, James Madison University
+Sunday February 8, 2015
+More details to follow!
+
+You don't want to miss out on this awesome weekend!
+
+Send any questions or inquiries about Coalescence weekend to jmucoalescence@gmail.com<p>
+                          </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+      </li>
+
+     <!-- !!!!!!!!!!!!!!!!!!!!!! end of event 1 !!!!!!!!!!!!!!!!!!!!!!!!!-->
+
+      <!-- !!!!!!!!!!!!!!!!!!!!!! event 2 !!!!!!!!!!!!!!!!!!!!!!!!!-->
+    <li class="list-group-item">
+                      <div class="row">
+                        <div class="col-md-2  col-sm-2 col-xs-4">
+                            <img src="http://placehold.it/150" class=" img-responsive" alt="" />   
+                        </div><!--end of col-md-1 col-sm-2 col-xs-3-->
+                      
+            <!-- event basic information -->
+                      <div class="col-md-4 col-sm-3 col-xs-7">
+                                   
+                          <a href="#"><strong>Coalescence 6th Annual Hip Hop Showcase Weekend</strong></a>  
+                    
+                         
+                            <div class="mic-info"><i class="fa fa-clock-o"></i>10:30-11:30    <i class="fa fa-crosshairs"></i>Torg 1030 </div>
+
+                            <div class="mic-info hoster"> <u></i>The dance club </u></div>
+
+                             <div class="mic-info category">free food,free swag, social, workshop</div>
+                                 
+                        </div>
+             <!-- event basic information -->
+
+
+              <!--                 event partial details                   -->
+                 <div class="hidden-phone star-rating col-md-5 col-sm-5 hidden-xs"> 
+                                        <p>Coalescence is a hip hop dance showcase that is open to all teams of all ages from DC, Maryland, Virginia, North Carolina, and surrounding areas. The purpose of Coalescence is to unite dancers and their crews, allowing all of us to share our talents and celebrate our love for dance and music. We want to show the diversity within our community, as well as strengthen, expose, and unify it. </p>
+                </div> 
+
+              <!--                 event partial details                   -->
+
+                <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 dropdown-user" data-for=".event2">
+                    <i class="glyphicon glyphicon-chevron-down text-muted"></i>
+                </div>
+            </div>
+
+            <div class="row applicants-infos event2">
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-1 col-lg-offset-1">
+                  <hr>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">More Details</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class=" col-md-12 col-sm-12 col-xs-12">
+                                   <p>Coalescence is a hip hop dance showcase that is open to all teams of all ages from DC, Maryland, Virginia, North Carolina, and surrounding areas. The purpose of Coalescence is to unite dancers and their crews, allowing all of us to share our talents and celebrate our love for dance and music. We want to show the diversity within our community, as well as strengthen, expose, and unify it.
+
+    Here are the details for this year's weekend:
+
+    COALESCENCE 6TH ANNUAL HIP HOP DANCE SHOWCASE
+    Memorial Hall, James Madison University
+    Saturday February 7, 2015
+
+    LINEUP:<br>
+    Mozaic Dance Team
+    Phunktions
+    CREWcial
+    Visual Distortions Dance Crew
+    Blank Canvas
+    Fusion
+    Bamboom
+    X-Tasee
+    Project Wahp
+    Baltimore Dance Crews Project: Juniors & Collective
+
+    Intermission: Kids Workshop Performance & Cypher!
+
+    Future Shock DC
+    Dancing's Our Poison
+    AKAdeMiX
+    Mighty Morphin Boogie Rangers
+    KickRocks/Pebbles
+    Physical Graffeeti
+    Major Definition
+    Dramatic FX
+    Coverboy
+    Mozaic Dance Team
+
+    KODACHROME WORKSHOP
+    Godwin Hall, James Madison University
+    Sunday February 8, 2015
+    More details to follow!
+
+    You don't want to miss out on this awesome weekend!
+
+    Send any questions or inquiries about Coalescence weekend to jmucoalescence@gmail.com<p>
+                              </div>
+                        </div>
+                       
+                    </div>
+                </div>
+            </div>
+          </li>
   </ul>
                 
       </div>
@@ -357,15 +556,7 @@ Send any questions or inquiries about Coalescence weekend to jmucoalescence@gmai
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div><!-- end col-sm-4 -->
           
-          <div class="col-sm-2">
-            <h6>Navigation</h6>
-            <ul class="unstyled">
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Links</a></li>
-              <li><a href="#">Contact</a></li>
-            </ul>
-          </div><!-- end col-sm-2 -->
+          
           
           <div class="col-sm-2">
             <h6>Follow Us</h6>
@@ -377,7 +568,7 @@ Send any questions or inquiries about Coalescence weekend to jmucoalescence@gmai
           </div><!-- end col-sm-2 -->
           
           <div class="col-sm-2">
-            <h6>Coded with <span class="glyphicon glyphicon-heart"></span> by CampusZebras</h6>
+            <h6>Coded with <span class="glyphicon glyphicon-heart"></span>Xikai, Sean, Jay</h6>
 
           </div><!-- end col-sm-2 -->
         </div><!-- end row -->
@@ -395,18 +586,19 @@ Send any questions or inquiries about Coalescence weekend to jmucoalescence@gmai
   <script src="http://code.jquery.com/jquery.js"></script>
   
   <!-- If no online access, fallback to our hardcoded version of jQuery -->
-  <!--<script>window.jQuery || document.write('<script src="includes/js/jquery-1.8.2.min.js"><\/script>')</script>-->
+  <script>window.jQuery || document.write('<script src="includes/js/jquery-1.8.2.min.js"><\/script>')</script>
   
   <!-- Bootstrap JS -->
-  <script src="css/bootstrap/js/bootstrap.min.js"></script>
+  <script src="bootstrap/js/bootstrap.min.js"></script>
   
   <!-- Custom JS -->
-  <script src="css/includes/js/script.js"></script>
+  <script src="includes/js/script.js"></script>
 
 
   <!-- searchble plugin -->
-  <!--<script src="includes/js/jquery.js"></script>-->
-  <script src="css/includes/js/jquery.searchable.js"></script>
+  <script src="includes/js/jquery.js"></script>
+  <script src="includes/js/jquery.searchable.js"></script>
   
   </body>
 </html>
+
