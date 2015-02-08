@@ -6,7 +6,9 @@ var fs = require('fs');
 var db = require('monk')('localhost:27017/mydb');
 var users = db.get('users');
 var today = new Date();
+var tagsParser = ["Performance", "Social"];
 users.index({'date': 1}, {'date': { $gt: today }});
+users.index({'tags': {"$all" : tagsParser} });
 
 //asking the front end to see the folder
 app.use(express.static(__dirname + '/js'));
@@ -27,12 +29,27 @@ app.get('/test', function(req,res){
 });
 	
 io.on('connection', function(socket){
-  //reading the file
-  socket.on('newsRequest', function(data) {
+  socket.on('filter', function(data) {
+    if (data.length == 0) 
+      users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
+        socket.emit('news', data); 
+      });
+    else
+      users.find({ 'date' : { $gt: today }, 'tags' : { "$all" : data} }, { sort: { 'date': 1 } }, function(err, data) {
+        socket.emit('news', data);      
+      });
+  });
+
+  
+  socket.on('req', function(data){
+    console.log("req received!");
     users.find({ 'date' : { $gt: today } }, { sort: { 'date': 1 } }, function(err, data) {
-      socket.emit('news', data);
+      socket.emit('infoSent', data);
+      console.log(data);
     });
   });
+
+  
   socket.on('submit', function(data){
     users.insert({
       name: data.username,
